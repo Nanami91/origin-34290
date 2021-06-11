@@ -12,7 +12,7 @@
 | first_name_kana    | string      | null: false              |
 | last_name_kana     | string      | null: false              |
 | birth_date         | date        | null: false              |
-| profile            | text        | null: false              |
+| profile            | text        |                          |
 
 ### Association
 
@@ -28,8 +28,9 @@
 | price           | integer    | null: false                    |
 | description     | text       | null: false                    |
 | menu            | text       | null: false                    |
-| concept         | text       | null: false                    |
+| genre           | text       | null: false                    |
 | star_id         | integer    | null: false                    |
+| eat_day         | date       |                     |
 | address         | references | null: false, foreign_key: true |
 | user            | references | null: false, foreign_key: true |
 
