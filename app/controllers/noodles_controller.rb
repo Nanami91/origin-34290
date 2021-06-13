@@ -1,6 +1,7 @@
 class NoodlesController < ApplicationController
 
   def index
+    @noodles = Noodle.all
     #@noodles = Noodle.find(params[:id])
   end
 

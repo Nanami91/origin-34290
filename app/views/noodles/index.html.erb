@@ -26,13 +26,10 @@
       会員数日本一位
     </h2>
     <p class='ad-explain'>
-      FURIMAは、フリマアプリで最も人気。
+      Noodlesは、ラーメンアプリで最も人気。
     </p>
     <p class='ad-explain'>
-      出品・購入回数も業界最多です！
-    </p>
-    <p class='ad-explain'>
-      ほしかったあの商品に出会えるかもしれません。
+      食べてみたいラーメンに出会えるかもしれません。
     </p>
     <div class='store-btn'>
       <%= link_to image_tag("https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2011-09-21&kind=iossoftware&bubble=ios_apps", class:"apple-btn"), "#" %>
@@ -43,40 +40,30 @@
 
   <%# 商品一覧 %>
   <div class='item-contents'>
-    <h2 class='title'>ピックアップカテゴリー</h2>
+    <h2 class='title'>ピックアップラーメン</h2>
     <%= link_to '新規投稿商品', "#", class: "subtitle" %>
     <ul class='item-lists'>
 
-     <%# @items.each do |item| %>
+     <% @noodles.each do |noodle| %>
       <li class='list'>
-        <%#= link_to item_path(item.id), method: :get do %>
+        <%= link_to noodles_path(noodle.id), method: :get do %>
         <div class='item-img-content'>
-          <%#= image_tag item.image, class: "item-img" %>
-
-          <%# if item.item_purchase.present? %>
-          <div class='sold-out'>
-            <span>Sold Out!!</span>
-          </div>
-          <%# end %>
+          <%= image_tag noodle.image, class: "item-img" %>
 
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
-            <%#= item.item_name %>
+            <%= noodle.store_name %>
           </h3>
-          <div class='item-price'>
-            <span><%#= item.price %>円<br><%#= item.shipping_charge.name %></span>
-            <div class='star-btn'>
-              <%#= image_tag "star.png", class:"star-icon" %>
-              <span class='star-count'>0</span>
-            </div>
+          <div class='star-btn'>
+            <%= noodle.prefecture.name %>
           </div>
         </div>
-       <%# end %>
+       <% end %>
       </li>
-      <%# end %>
+      <% end %>
 
-      <%# if @items.blank? %>
+      <% if @noodles.blank? %>
       <li class='list'>
         <%#= link_to '#' do %>
         <%#= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -92,7 +79,7 @@
             </div>
           </div>
         </div>
-        <%# end %>
+        <% end %>
       </li>
       <%# end %>
     </ul>
@@ -100,8 +87,8 @@
   <%# /商品一覧 %>
 </div>
 
-  <%#= link_to(new_item_path, class: 'purchase-btn') do %>
-    <span class='purchase-btn-text'>出品する</span>
-   <%#= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
-  <%# end %>
+  <%= link_to(new_noodle_path, class: 'purchase-btn') do %>
+    <span class='purchase-btn-text'>投稿する</span>
+   <%= image_tag 'post-ramen.jpg' , size: '185x50' ,class: "purchase-btn-icon" %>
+  <% end %>
 <%= render "shared/footer" %>
