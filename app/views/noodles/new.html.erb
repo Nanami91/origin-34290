@@ -1,0 +1,185 @@
+<div class="items-sell-contents">
+  <header class="items-sell-header">
+  <%= render "shared/second-header"%>
+
+
+  </header>
+  <div class="items-sell-main">
+    <h2 class="items-sell-title">ラーメンの情報を入力</h2>
+    <%= form_with model: @noodle_address, url: noodles_path, id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
+
+    <%= render 'shared/error_messages', model: f.object %>
+
+    <%# 出品画像 %>
+    <div class="img-upload">
+      <div class="weight-bold-text">
+        ラーメンの画像
+        <span class="indispensable">必須</span>
+      </div>
+      <div class="click-upload">
+        <p>
+          クリックしてファイルをアップロード
+        </p>
+        <%= f.file_field :image, id:"item-image" %>
+      </div>
+    </div>
+    <%# /出品画像 %>
+    <%# 商品名と商品説明 %>
+    <div class="new-items">
+      <div class="weight-bold-text">
+        ラーメン店の名前
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_area :store_name, class:"items-text", id:"item-name", placeholder:"ラーメン店の名前（必須 40文字まで)", maxlength:"40" %>
+      <div class="items-explain">
+        <div class="weight-bold-text">
+          ラーメンの感想
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_area :description, class:"items-text", id:"item-info", placeholder:"ラーメンの感想（必須 1,000文字まで）例）2010年頃にできたというお店に行ってきました。店内はカウンター席とテーブルが何席かあり、とても賑わっていました。今回は醤油ラーメンを食べましたが、他にもさまざまな種類のラーメンがありました。とてもおいしかったです" ,rows:"7" ,maxlength:"1000" %>
+      </div>
+
+      <div class="items-explain">
+        <div class="weight-bold-text">
+          食べたメニュー
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_area :menu, class:"items-text", id:"item-info", placeholder:"ラーメンのメニュー（必須）（醤油ラーメン、味玉ラーメンなど）例）全部のせラーメン。" ,rows:"7" ,maxlength:"1000" %>
+      </div>
+      <div class="items-explain">
+        <div class="weight-bold-text">
+          ラーメンのジャンル
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_area :genre, class:"items-text", id:"item-info", placeholder:"ラーメンのジャンル（必須）（醤油、豚骨、塩、つけ麺など）例）魚介ベースの濃厚つけ麺" ,rows:"7" ,maxlength:"1000" %>
+      </div>
+    </div>
+    <%# /商品名と商品説明 %>
+
+    <%# 商品の詳細 %>
+    <div class="items-detail">
+      <div class="weight-bold-text">ラーメンの詳細</div>
+      <div class="form">
+        <div class="weight-bold-text">
+          オススメ度
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.collection_select(:star_id, Star.all, :id, :name, {}, {class:"select-box", id:"ramen-star"}) %>
+        <div class="weight-bold-text">
+          食べた日
+        </div>
+        <%= f.date_field :eat_date %>
+      </div>
+    </div>
+    <%# /商品の詳細 %>
+
+    <%# 販売価格 %>
+    <div class="sell-price">
+      <div class="weight-bold-text question-text">
+        価格
+        <a class="question" href="#">?</a>
+      </div>
+      <div>
+        <div class="price-content">
+          <div class="price-text">
+            <span>価格</span>
+            <span class="indispensable">必須</span>
+          </div>
+          <span class="sell-yen">¥</span>
+          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300" %>
+        </div>
+      </div>
+    </div>
+    <%# /販売価格 %>
+
+    <%# 配送先の入力 %>
+    <div class='shipping-address-form'>
+      <h1 class='info-input-haedline'>
+        ラーメン屋住所入力
+      </h1>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">郵便番号</label>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :post_code, class:"input-default", id:"postal-code", placeholder:"例）123-4567", maxlength:"8" %>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">都道府県</label>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">市区町村</label>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :city, class:"input-default", id:"city", placeholder:"例）横浜市緑区"%>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">番地</label>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :home_number, class:"input-default", id:"addresses", placeholder:"例）青山1-1-1"%>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">建物名</label>
+          <span class="form-any">任意</span>
+        </div>
+        <%= f.text_field :building_name, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">電話番号</label>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :phone_number, class:"input-default", id:"phone-number", placeholder:"例）09012345678",maxlength:"11"%>
+      </div>
+    </div>
+    <%# /配送先の入力 %>
+
+    <%# 注意書き %>
+    <div class="caution">
+      <p class="sentence">
+        <a href="#">禁止されている投稿、</a>
+        <a href="#">行為</a>
+        を必ずご確認ください。
+      </p>
+      <p class="sentence">
+        またブランド品でシリアルナンバー等がある場合はご記載ください。
+        <a href="#">偽店舗の記載</a>
+        は犯罪であり処罰される可能性があります。
+      </p>
+      <p class="sentence">
+        また、投稿をもちまして
+        <a href="#">加盟店規約</a>
+        に同意したことになります。
+      </p>
+    </div>
+    <%# /注意書き %>
+    <%# 下部ボタン %>
+    <div class="sell-btn-contents">
+      <%= f.submit "投稿する" ,class:"sell-btn" %>
+      <%=link_to 'もどる', root_path, class:"back-btn" %>
+    </div>
+    <%# /下部ボタン %>
+  </div>
+  <% end %>
+
+</div>
+
+<footer class="ramen-sell-footer">
+    <ul class="menu">
+      <li><a href="#">プライバシーポリシー</a></li>
+      <li><a href="#">利用規約</a></li>
+      <li><a href="#">特定商取引に関する表記</a></li>
+    </ul>
+    <%= link_to image_tag('ramen-logo.png' , size: '150x100'), "/" %>
+    <p class="inc">
+      ©︎ Noodles,Inc.
+    </p>
+</footer>
